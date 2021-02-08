@@ -1,5 +1,5 @@
-const getRandomInteger = function (min, max) {
-  if (min >= 0 && max >= 0 && min < max) {
+const getRandomInteger = (min, max) => {
+  if (min >= 0 && min < max) {
     return Math.round(Math.random() * (max - min + 1) + min);
   }
   window.console.error('error message');
@@ -9,9 +9,7 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomInteger(0, elements.length - 1)];
 };
 
-const getCharacterLength = function (str, max = 140) {
-  return str.length <= max;
-};
+const getCharacterLength = (str, max = 140) => str.length <= max;
 getCharacterLength('');
 
 // ----------------------------------------------------------------- //
@@ -51,18 +49,22 @@ const likes = {
 };
 
 const createPhotoDescription = () => {
-  return {
-    id: getRandomInteger(1, 25),
-    url: 'photos/' + getRandomInteger(1, 25) + '.jpg',
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(likes.MIN, likes.MAX),
-    comments: {
-      id: getRandomInteger(1, 25),
-      avatar: 'img/avatar' + getRandomInteger(1, 6) + '.svg',
-      message: getRandomArrayElement(MESSAGES),
-      name: getRandomArrayElement(NAMES),
-    },
-  };
+  const photos = [];
+  for (let i = 0; i < OBJECT_COUNT; i++) {
+    photos.push({
+      id: photos.length,
+      url: 'photos/' + (photos.length) + '.jpg',
+      description: getRandomArrayElement(DESCRIPTIONS),
+      likes: getRandomInteger(likes.MIN, likes.MAX),
+      comments: {
+        id: photos.length,
+        avatar: 'img/avatar' + getRandomInteger(1, 6) + '.svg',
+        message: getRandomArrayElement(MESSAGES),
+        name: getRandomArrayElement(NAMES),
+      },
+    });
+  }
+  return photos;
 };
 
-new Array(OBJECT_COUNT).fill(null).map(() => createPhotoDescription());
+createPhotoDescription();
