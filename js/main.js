@@ -57,12 +57,12 @@ const getComments = () => {
   const comments = [];
   const countComments = getRandomInteger(1, MAX_COMMENTS);
   for (let i = 0; i < countComments; i++) {
-    comments.push(createComment());
+    comments.push(createComment(i));
   }
   return comments;
 };
 
-const createPhoto = (item, id) => {
+const createPhoto = (id) => {
   return {
     id: id,
     url: 'photos/' + id + '.jpg',
@@ -72,5 +72,4 @@ const createPhoto = (item, id) => {
   }
 };
 
-const photos = new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(item, id));
-photos;
+new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
