@@ -1,6 +1,10 @@
 'use strict';
 
+const MAX_STR_LENGTH = 140;
+
 const OBJECT_COUNT = 25;
+const MAX_AVATAR = 6;
+const MAX_COMMENTS = 10;
 
 const DESCRIPTIONS = ['description 1', 'description 2', 'description 3', 'description 4', 'description 5', 'description 6'];
 
@@ -33,34 +37,40 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomInteger(0, elements.length - 1)];
 };
 
-const getCharacterLength = (str, max = 140) => str.length <= max;
+const getCharacterLength = (str, max = MAX_STR_LENGTH) => {
+  return str.length <= max;
+};
 getCharacterLength('');
 
 // ----------------------- //
 
-const createComments = () => {
+const createComment = (id) => {
+  return {
+    id: id,
+    avatar: 'img/avatar' + getRandomInteger(1, MAX_AVATAR) + '.svg',
+    message: getRandomArrayElement(MESSAGES),
+    name: getRandomArrayElement(NAMES),
+  }
+};
+
+const getComments = () => {
   const comments = [];
-  const countComments = getRandomInteger(1, 10);
+  const countComments = getRandomInteger(1, MAX_COMMENTS);
   for (let i = 0; i < countComments; i++) {
-    comments.push({
-      id: i,
-      avatar: 'img/avatar' + getRandomInteger(1, 6) + '.svg',
-      message: getRandomArrayElement(MESSAGES),
-      name: getRandomArrayElement(NAMES),
-    });
+    comments.push(createComment());
   }
   return comments;
 };
 
-const createPhotoDescription = (item, id) => {
+const createPhoto = (item, id) => {
   return {
     id: id,
     url: 'photos/' + id + '.jpg',
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInteger(Likes.MIN, Likes.MAX),
-    comments: createComments(),
+    comments: getComments(),
   }
 };
 
-const photos = new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhotoDescription(item, id));
+const photos = new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(item, id));
 photos;
