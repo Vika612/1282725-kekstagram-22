@@ -52,18 +52,15 @@ const createComments = () => {
   return comments;
 };
 
-const createPhotosDescription = () => {
-  const photos = [];
-  for (let i = 0; i < OBJECT_COUNT; i++) {
-    photos.push({
-      id: photos.length,
-      url: 'photos/' + (photos.length) + '.jpg',
-      description: getRandomArrayElement(DESCRIPTIONS),
-      likes: getRandomInteger(Likes.MIN, Likes.MAX),
-      comments: createComments(),
-    });
+const createPhotoDescription = (item, id) => {
+  return {
+    id: id,
+    url: 'photos/' + id + '.jpg',
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInteger(Likes.MIN, Likes.MAX),
+    comments: createComments(),
   }
-  return photos;
 };
 
-createPhotosDescription();
+const photos = new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhotoDescription(item, id));
+photos;
