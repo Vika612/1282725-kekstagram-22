@@ -1,5 +1,3 @@
-'use strict';
-
 import {getRandomInteger, getRandomArrayElement} from './util.js';
 
 const OBJECT_COUNT = 25;
@@ -43,13 +41,16 @@ const getComments = () => {
 };
 
 const createPhoto = (id) => {
+  const photoId = id + 1;
   return {
-    id: id,
-    url: 'photos/' + id + '.jpg',
+    id: photoId,
+    url: 'photos/' + photoId + '.jpg',
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInteger(Likes.MIN, Likes.MAX),
     comments: getComments(),
   }
 };
 
-new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
+const photos = new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
+
+export {photos};

@@ -1,5 +1,3 @@
-'use strict';
-
 const MAX_STR_LENGTH = 140;
 
 const getRandomInteger = (min, max) => {
