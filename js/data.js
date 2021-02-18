@@ -41,15 +41,16 @@ const getComments = () => {
 };
 
 const createPhoto = (id) => {
+  const photoId = id + 1;
   return {
-    id: id,
-    url: 'photos/' + id + '.jpg',
+    id: photoId,
+    url: 'photos/' + photoId + '.jpg',
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInteger(Likes.MIN, Likes.MAX),
     comments: getComments(),
   }
 };
 
-const createPhotos = () => new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
+const photos = new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
 
-export {createPhotos};
+export {photos};

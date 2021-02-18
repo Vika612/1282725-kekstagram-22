@@ -1,20 +1,20 @@
-import {createPhotos} from './data.js';
+import {photos} from './data.js';
 
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-const createPictures = createPhotos();
+const pictures = photos;
 
 const fragment = document.createDocumentFragment();
 
-createPictures.forEach(({url, likes, comments}) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.querySelector('.picture__img').src = url;
-  pictureElement.querySelector('.picture__likes').textContent = likes;
-  pictureElement.querySelector('.picture__comments').textContent = comments.length;
-  fragment.appendChild(pictureElement);
+pictures.forEach(({url, likes, comments}) => {
+  const picture = pictureTemplate.cloneNode(true);
+  picture.querySelector('.picture__img').src = url;
+  picture.querySelector('.picture__likes').textContent = likes;
+  picture.querySelector('.picture__comments').textContent = comments.length;
+  fragment.appendChild(picture);
 });
 
 picturesList.appendChild(fragment);
