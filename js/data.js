@@ -1,5 +1,3 @@
-'use strict';
-
 import {getRandomInteger, getRandomArrayElement} from './util.js';
 
 const OBJECT_COUNT = 25;
@@ -52,4 +50,6 @@ const createPhoto = (id) => {
   }
 };
 
-new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
+const createPhotos = () => new Array(OBJECT_COUNT).fill(null).map((item, id) => createPhoto(id));
+
+export {createPhotos};

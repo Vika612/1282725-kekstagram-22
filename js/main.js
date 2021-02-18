@@ -1,3 +1,2 @@
-'use strict';
-
 import './data.js';
+import './thumbnails.js';
