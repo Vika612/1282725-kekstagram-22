@@ -1,7 +1,7 @@
 import {getRandomInteger, getRandomArrayElement} from './random.js';
 
 const OBJECT_COUNT = 25;
-const MAX_AVATAR = 6;
+const MAX_AVATAR = 5;
 const MAX_COMMENTS = 10;
 
 const DESCRIPTIONS = ['description 1', 'description 2', 'description 3', 'description 4', 'description 5', 'description 6'];
@@ -25,7 +25,7 @@ const Likes = {
 const createComment = (id) => {
   return {
     id: id,
-    avatar: 'img/avatar' + getRandomInteger(1, MAX_AVATAR) + '.svg',
+    avatar: 'img/avatar-' + getRandomInteger(1, MAX_AVATAR) + '.svg',
     message: getRandomArrayElement(MESSAGES),
     name: getRandomArrayElement(NAMES),
   }

@@ -15,7 +15,6 @@ const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
 
-// создание и добавление нового коммента в список комментариев
 
 const createNewComment = (commentInfo) => {
   const newComment = document.createElement('li');
@@ -37,9 +36,9 @@ const createNewComment = (commentInfo) => {
   socialComments.appendChild(newComment);
 };
 
-// заполнение конкретной фотографии данными
 
 const createBigPictureContent = (info) => {
+  socialComments.innerHTML = '';
   bigPictureImg.src = info.url;
   likesCount.textContent = info.likes;
   commentsCount.textContent = info.comments.length;
@@ -49,6 +48,7 @@ const createBigPictureContent = (info) => {
     createNewComment(info.comments[i]);
   }
 };
+
 
 const onPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
