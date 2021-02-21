@@ -1,10 +1,10 @@
 import {pictures} from './thumbnails.js';
-import {isEscEvent, isEnterEvent} from './util.js';
+import {isEscEvent} from './util.js';
 
 const AVATAR_WIDTH = 35;
 const AVATAR_HEIGHT = 35;
 const body = document.querySelector('body');
-const previewsList = document.querySelectorAll('picture');
+const previewsList = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -51,13 +51,14 @@ const createBigPictureContent = (info) => {
 };
 
 const onPreviewClick = (preview, info) => {
-  document.addEventListener('keydown', onModalEscPress);
   preview.addEventListener('click', () => {
     bigPicture.classList.remove('hidden');
     socialCommentCount.classList.add('hidden');
     commentsLoader.classList.add('hidden');
     body.classList.add('modal-open');
     createBigPictureContent(info);
+
+    document.addEventListener('keydown', onModalEscPress);
   });
 };
 
@@ -81,9 +82,3 @@ const closeModal = () => {
 bigPictureClose.addEventListener('click', () => {
   closeModal();
 })
-
-bigPicture.addEventListener('keydown', (evt) => {
-  if(isEnterEvent(evt)) {
-    closeModal();
-  }
-});
