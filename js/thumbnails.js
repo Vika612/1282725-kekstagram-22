@@ -18,3 +18,5 @@ pictures.forEach(({url, likes, comments}) => {
 });
 
 picturesList.appendChild(fragment);
+
+export {pictures};

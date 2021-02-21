@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomArrayElement} from './util.js';
+import {getRandomInteger, getRandomArrayElement} from './random.js';
 
 const OBJECT_COUNT = 25;
 const MAX_AVATAR = 6;
