@@ -6,7 +6,7 @@ const AVATAR_HEIGHT = 35;
 const body = document.querySelector('body');
 const previewsList = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img > img');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -62,10 +62,6 @@ const onPreviewClick = (preview, info) => {
   });
 };
 
-for (let i = 0; i < previewsList.length; i++) {
-  onPreviewClick(previewsList[i], pictures[i]);
-}
-
 const onModalEscPress = (evt) => {
   if(isEscEvent(evt)) {
     evt.preventDefault();
@@ -82,3 +78,7 @@ const closeModal = () => {
 bigPictureClose.addEventListener('click', () => {
   closeModal();
 })
+
+for (let i = 0; i < previewsList.length; i++) {
+  onPreviewClick(previewsList[i], pictures[i]);
+}
