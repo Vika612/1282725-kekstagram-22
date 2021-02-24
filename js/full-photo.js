@@ -16,51 +16,49 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
 
 
-const createNewComment = (commentInfo) => {
+const createNewComment = ({avatar, name, message}) => {
   const newComment = document.createElement('li');
   newComment.classList.add('social__comment');
 
   const newAvatar = document.createElement('img');
   newAvatar.classList.add('social__picture');
-  newAvatar.src = commentInfo.avatar;
-  newAvatar.alt = commentInfo.name;
+  newAvatar.src = avatar;
+  newAvatar.alt = name;
   newAvatar.width = AVATAR_WIDTH;
   newAvatar.height = AVATAR_HEIGHT;
   newComment.appendChild(newAvatar);
 
   const newText = document.createElement('p');
   newText.classList.add('social__text');
-  newText.textContent = commentInfo.message;
+  newText.textContent = message;
   newComment.appendChild(newText);
 
   socialComments.appendChild(newComment);
 };
 
 
-const createBigPictureContent = (info) => {
+const createBigPictureContent = ({url, likes, comments, description}) => {
   socialComments.innerHTML = '';
-  bigPictureImg.src = info.url;
-  likesCount.textContent = info.likes;
-  commentsCount.textContent = info.comments.length;
-  socialCaption.textContent = info.description;
+  bigPictureImg.src = url;
+  likesCount.textContent = likes;
+  commentsCount.textContent = comments.length;
+  socialCaption.textContent = description;
 
-  for (let i = 0; i < info.comments.length; i++) {
-    createNewComment(info.comments[i]);
+  for (let i = 0; i < comments.length; i++) {
+    createNewComment(comments[i]);
   }
 };
 
 
 const onPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
-    bigPicture.classList.remove('hidden');
     socialCommentCount.classList.add('hidden');
     commentsLoader.classList.add('hidden');
-    body.classList.add('modal-open');
     createBigPictureContent(info);
-
-    document.addEventListener('keydown', onModalEscPress);
+    openModal();
   });
 };
+
 
 const onModalEscPress = (evt) => {
   if(isEscEvent(evt)) {
@@ -69,15 +67,22 @@ const onModalEscPress = (evt) => {
   }
 };
 
+const openModal = () => {
+  bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onModalEscPress);
+};
+
 const closeModal = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onModalEscPress);
-}
+};
 
 bigPictureClose.addEventListener('click', () => {
   closeModal();
-})
+});
+
 
 for (let i = 0; i < previewsList.length; i++) {
   onPreviewClick(previewsList[i], pictures[i]);
