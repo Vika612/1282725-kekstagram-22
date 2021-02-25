@@ -1,10 +1,12 @@
 import {isEscEvent} from './util.js';
-import {onScaleControlSmaller, onScaleControlBigger, removeScale} from './img-scale.js';
+import {setScaleImg} from './img-scale.js';
 
+const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
+const imgUploadPreview = document.querySelector('.img-upload__preview');
 
 const onEscPress = (evt) => {
   if(isEscEvent(evt)) {
@@ -17,8 +19,7 @@ const openUploadImg = () => {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscPress);
-  onScaleControlSmaller();
-  onScaleControlBigger();
+  setScaleImg(DEFAULT_SCALE);
 };
 
 const closeUploadImg = () => {
@@ -26,7 +27,7 @@ const closeUploadImg = () => {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscPress);
   uploadFile.value = '';
-  removeScale();
+  imgUploadPreview.style = '';
 };
 
 uploadFile.addEventListener('change', () => {

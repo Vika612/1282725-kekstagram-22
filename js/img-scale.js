@@ -9,30 +9,25 @@ const scaleControlBigger = document.querySelector('.scale__control--bigger');
 let scaleValue = parseInt(scaleControlValue.value);
 
 
-const onScaleControlSmaller = () => {
-  scaleControlSmaller.addEventListener('click', () => {
-    if (scaleValue > MIN_SCALE) {
-      scaleValue -= STEP_SCALE;
-    }
-    scaleControlValue.value = `${scaleValue}%`;
-    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
-  });
+const setScaleImg = (value) => {
+  scaleValue = value;
+  scaleControlValue.value = `${scaleValue}%`;
+  imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
 };
 
-const onScaleControlBigger = () => {
-  scaleControlBigger.addEventListener('click', () => {
-    if (scaleValue < MAX_SCALE) {
-      scaleValue += STEP_SCALE;
-    }
-    scaleControlValue.value = `${scaleValue}%`;
-    imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
-  });
-};
+scaleControlSmaller.addEventListener('click', () => {
+  if (scaleValue > MIN_SCALE && scaleValue <= MAX_SCALE) {
+    scaleValue -= STEP_SCALE;
+  }
+  setScaleImg(scaleValue);
+});
 
-const removeScale = () => {
-  imgUploadPreview.style = '';
-  scaleControlSmaller.removeEventListener('click', onScaleControlSmaller);
-  scaleControlBigger.removeEventListener('click', onScaleControlBigger);
-};
 
-export {onScaleControlSmaller, onScaleControlBigger, removeScale};
+scaleControlBigger.addEventListener('click', () => {
+  if (scaleValue >= MIN_SCALE && scaleValue < MAX_SCALE) {
+    scaleValue += STEP_SCALE;
+  }
+  setScaleImg(scaleValue);
+});
+
+export {setScaleImg};
