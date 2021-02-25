@@ -1,5 +1,5 @@
 import {isEscEvent} from './util.js';
-import {onScaleControlSmaller, onScaleControlBigger} from './img-scale.js';
+import {onScaleControlSmaller, onScaleControlBigger, removeScale} from './img-scale.js';
 
 const body = document.querySelector('body');
 const uploadFile = document.querySelector('#upload-file');
@@ -26,6 +26,7 @@ const closeUploadImg = () => {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscPress);
   uploadFile.value = '';
+  removeScale();
 };
 
 uploadFile.addEventListener('change', () => {

@@ -29,4 +29,10 @@ const onScaleControlBigger = () => {
   });
 };
 
-export {onScaleControlSmaller, onScaleControlBigger};
+const removeScale = () => {
+  imgUploadPreview.style = '';
+  scaleControlSmaller.removeEventListener('click', onScaleControlSmaller);
+  scaleControlBigger.removeEventListener('click', onScaleControlBigger);
+};
+
+export {onScaleControlSmaller, onScaleControlBigger, removeScale};
