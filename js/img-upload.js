@@ -1,5 +1,6 @@
 import {isEscEvent} from './util.js';
 import {setScaleImg} from './img-scale.js';
+import {addEffects, removeEffects} from './img-effects.js';
 
 const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
@@ -20,6 +21,7 @@ const openUploadImg = () => {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscPress);
   setScaleImg(DEFAULT_SCALE);
+  addEffects();
 };
 
 const closeUploadImg = () => {
@@ -28,6 +30,7 @@ const closeUploadImg = () => {
   document.removeEventListener('keydown', onEscPress);
   uploadFile.value = '';
   imgUploadPreview.style = '';
+  removeEffects();
 };
 
 uploadFile.addEventListener('change', () => {
