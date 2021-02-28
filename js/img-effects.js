@@ -17,10 +17,7 @@ const createSlider = () => {
     connect: 'lower',
     format: {
       to: function (value) {
-        if (Number.isInteger(value)) {
-          return value.toFixed(0);
-        }
-        return value.toFixed(1);
+        return   Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1);
       },
       from: function (value) {
         return parseFloat(value);
@@ -85,10 +82,10 @@ const getFilterChange = () => {
   effectsItem.forEach((effect) => {
     effect.addEventListener('click', () => {
       if (effect.value === 'none') {
-        slider.style.display = 'none';
+        slider.classList.add('hidden');
         imgUploadPreview.style.filter = 'none';
       } else {
-        slider.style.display = 'block';
+        slider.classList.remove('hidden');
         imgUploadPreview.classList.add(`.effects__preview--${effect.value}`);
         onSliderChange(effect.value);
       }

@@ -15,19 +15,21 @@ const setScaleImg = (value) => {
   imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
 };
 
-scaleControlSmaller.addEventListener('click', () => {
-  if (scaleValue > MIN_SCALE && scaleValue <= MAX_SCALE) {
-    scaleValue -= STEP_SCALE;
+const getScaleStep = (direction) => {
+  scaleValue += STEP_SCALE * direction;
+  if (scaleValue >= MIN_SCALE && scaleValue <= MAX_SCALE) {
+    setScaleImg(scaleValue);
   }
-  setScaleImg(scaleValue);
+};
+
+scaleControlSmaller.addEventListener('click', () => {
+  getScaleStep(-1);
 });
 
 
 scaleControlBigger.addEventListener('click', () => {
-  if (scaleValue >= MIN_SCALE && scaleValue < MAX_SCALE) {
-    scaleValue += STEP_SCALE;
-  }
-  setScaleImg(scaleValue);
+  getScaleStep(1);
 });
+
 
 export {setScaleImg};
