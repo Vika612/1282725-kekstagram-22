@@ -5,6 +5,48 @@ const effectLevelValue = document.querySelector('.effect-level__value');
 const effectsItem = document.querySelectorAll('.effects__radio');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 
+const options = {
+  'chrome': {
+    range: {
+      min: 0,
+      max: 1,
+    },
+    step: 0.1,
+    start: 1,
+  },
+  'sepia': {
+    range: {
+      min: 0,
+      max: 1,
+    },
+    step: 0.1,
+    start: 1,
+  },
+  'marvin': {
+    range: {
+      min: 0,
+      max: 100,
+    },
+    step: 1,
+    start: 100,
+  },
+  'phobos': {
+    range: {
+      min: 0,
+      max: 3,
+    },
+    step: 0.1,
+    start: 3,
+  },
+  'heat': {
+    range: {
+      min: 1,
+      max: 3,
+    },
+    step: 0.1,
+    start: 3,
+  },
+};
 
 const createSlider = () => {
   noUiSlider.create(slider, {
@@ -12,8 +54,8 @@ const createSlider = () => {
       min: 0,
       max: 1,
     },
-    start: 1,
     step: 0.1,
+    start: 1,
     connect: 'lower',
     format: {
       to: function (value) {
@@ -26,33 +68,21 @@ const createSlider = () => {
   });
 };
 
-const changeParametr = (effect) => {
-  if (effect === 'marvin') {
-    slider.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100,
-      },
-      step: 1,
-    });
-  } else if (effect === 'phobos') {
-    slider.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 3,
-      },
-      step: 0.1,
-    });
-  } else if (effect === 'heat') {
-    slider.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 3,
-      },
-      step: 0.1,
-    });
+
+const changeOptions = (effect) => {
+  switch (effect) {
+    case 'marvin':
+      slider.noUiSlider.updateOptions(options['marvin']);
+      break;
+    case 'phobos':
+      slider.noUiSlider.updateOptions(options['phobos']);
+      break;
+    case 'heat':
+      slider.noUiSlider.updateOptions(options['heat']);
+      break;
   }
 };
+
 
 const getFilterStyle = (effect, values, handle) => {
   switch (effect) {
@@ -69,13 +99,15 @@ const getFilterStyle = (effect, values, handle) => {
   }
 };
 
+
 const onSliderChange = (effect) => {
-  changeParametr(effect);
+  changeOptions(effect);
   slider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
     imgUploadPreview.style.filter = getFilterStyle(effect, values, handle);
   });
 };
+
 
 const getFilterChange = () => {
   effectsItem.forEach((effect) => {
@@ -92,9 +124,11 @@ const getFilterChange = () => {
   });
 };
 
+
 const destroySlider = () => {
   slider.noUiSlider.destroy();
 };
+
 
 const addEffects = () => {
   createSlider();
