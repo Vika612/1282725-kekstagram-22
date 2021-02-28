@@ -76,9 +76,6 @@ const onSliderChange = (effect) => {
       case 'heat':
         imgUploadPreview.style.filter = `brightness(${values[handle]})`;
         break;
-      case 'none':
-        imgUploadPreview.style.filter = 'none';
-        break;
     }
     effectLevelValue.value = values[handle];
   });
@@ -87,8 +84,14 @@ const onSliderChange = (effect) => {
 const getFilterChange = () => {
   effectsItem.forEach((effect) => {
     effect.addEventListener('click', () => {
-      imgUploadPreview.classList.add(`.effects__preview--${effect.value}`);
-      onSliderChange(effect.value);
+      if (effect.value === 'none') {
+        slider.style.display = 'none';
+        imgUploadPreview.style.filter = 'none';
+      } else {
+        slider.style.display = 'block';
+        imgUploadPreview.classList.add(`.effects__preview--${effect.value}`);
+        onSliderChange(effect.value);
+      }
     })
   });
 };
@@ -102,8 +105,5 @@ const addEffects = () => {
   getFilterChange();
 };
 
-const removeEffects = () => {
-  destroySlider();
-};
 
-export {addEffects, removeEffects};
+export {addEffects, destroySlider};

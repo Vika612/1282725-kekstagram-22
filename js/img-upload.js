@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 import {setScaleImg} from './img-scale.js';
-import {addEffects, removeEffects} from './img-effects.js';
+import {addEffects, destroySlider} from './img-effects.js';
 
 const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
@@ -30,7 +30,7 @@ const closeUploadImg = () => {
   document.removeEventListener('keydown', onEscPress);
   uploadFile.value = '';
   imgUploadPreview.style = '';
-  removeEffects();
+  destroySlider();
 };
 
 uploadFile.addEventListener('change', () => {
