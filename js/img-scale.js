@@ -15,7 +15,7 @@ const setScaleImg = (value) => {
   imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
 };
 
-const getScaleStep = (direction) => {
+const setScaleStep = (direction) => {
   scaleValue += STEP_SCALE * direction;
   if (scaleValue >= MIN_SCALE && scaleValue <= MAX_SCALE) {
     setScaleImg(scaleValue);
@@ -23,12 +23,11 @@ const getScaleStep = (direction) => {
 };
 
 scaleControlSmaller.addEventListener('click', () => {
-  getScaleStep(-1);
+  setScaleStep(-1);
 });
 
-
 scaleControlBigger.addEventListener('click', () => {
-  getScaleStep(1);
+  setScaleStep(1);
 });
 
 

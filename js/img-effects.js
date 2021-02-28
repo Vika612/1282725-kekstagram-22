@@ -54,27 +54,26 @@ const changeParametr = (effect) => {
   }
 };
 
+const getFilterStyle = (effect, values, handle) => {
+  switch (effect) {
+    case 'chrome':
+      return `grayscale(${values[handle]})`;
+    case 'sepia':
+      return`sepia(${values[handle]})`;
+    case 'marvin':
+      return`invert(${values[handle]}%)`;
+    case 'phobos':
+      return`blur(${values[handle]}px)`;
+    case 'heat':
+      return`brightness(${values[handle]})`;
+  }
+};
+
 const onSliderChange = (effect) => {
   changeParametr(effect);
   slider.noUiSlider.on('update', (values, handle) => {
-    switch (effect) {
-      case 'chrome':
-        imgUploadPreview.style.filter = `grayscale(${values[handle]})`;
-        break;
-      case 'sepia':
-        imgUploadPreview.style.filter = `sepia(${values[handle]})`;
-        break;
-      case 'marvin':
-        imgUploadPreview.style.filter = `invert(${values[handle]}%)`;
-        break;
-      case 'phobos':
-        imgUploadPreview.style.filter = `blur(${values[handle]}px)`;
-        break;
-      case 'heat':
-        imgUploadPreview.style.filter = `brightness(${values[handle]})`;
-        break;
-    }
     effectLevelValue.value = values[handle];
+    imgUploadPreview.style.filter = getFilterStyle(effect, values, handle);
   });
 };
 
