@@ -4,6 +4,7 @@ const slider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectsItem = document.querySelectorAll('.effects__radio');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
+let imgEffect = 'none';
 
 const options = {
   'chrome': {
@@ -72,15 +73,16 @@ const createSlider = () => {
 const changeOptions = (effect) => {
   switch (effect) {
     case 'marvin':
-      slider.noUiSlider.updateOptions(options['marvin']);
+      imgEffect = 'marvin';
       break;
     case 'phobos':
-      slider.noUiSlider.updateOptions(options['phobos']);
+      imgEffect = 'phobos';
       break;
     case 'heat':
-      slider.noUiSlider.updateOptions(options['heat']);
+      imgEffect = 'heat';
       break;
   }
+  slider.noUiSlider.updateOptions(options[imgEffect]);
 };
 
 
