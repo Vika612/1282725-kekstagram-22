@@ -4,50 +4,7 @@ const slider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const effectsItem = document.querySelectorAll('.effects__radio');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
-let imgEffect = 'none';
-
-const options = {
-  'chrome': {
-    range: {
-      min: 0,
-      max: 1,
-    },
-    step: 0.1,
-    start: 1,
-  },
-  'sepia': {
-    range: {
-      min: 0,
-      max: 1,
-    },
-    step: 0.1,
-    start: 1,
-  },
-  'marvin': {
-    range: {
-      min: 0,
-      max: 100,
-    },
-    step: 1,
-    start: 100,
-  },
-  'phobos': {
-    range: {
-      min: 0,
-      max: 3,
-    },
-    step: 0.1,
-    start: 3,
-  },
-  'heat': {
-    range: {
-      min: 1,
-      max: 3,
-    },
-    step: 0.1,
-    start: 3,
-  },
-};
+let options;
 
 const createSlider = () => {
   noUiSlider.create(slider, {
@@ -69,22 +26,61 @@ const createSlider = () => {
   });
 };
 
-
 const changeOptions = (effect) => {
   switch (effect) {
+    case 'chrome':
+      options = {
+        range: {
+          min: 0,
+          max: 1,
+        },
+        step: 0.1,
+        start: 1,
+      }
+      break;
+    case 'sepia':
+      options = {
+        range: {
+          min: 0,
+          max: 1,
+        },
+        step: 0.1,
+        start: 1,
+      }
+      break;
     case 'marvin':
-      imgEffect = 'marvin';
+      options = {
+        range: {
+          min: 0,
+          max: 100,
+        },
+        step: 1,
+        start: 100,
+      }
       break;
     case 'phobos':
-      imgEffect = 'phobos';
+      options = {
+        range: {
+          min: 0,
+          max: 3,
+        },
+        step: 0.1,
+        start: 3,
+      }
       break;
     case 'heat':
-      imgEffect = 'heat';
+      options = {
+        range: {
+          min: 1,
+          max: 3,
+        },
+        step: 0.1,
+        start: 3,
+      }
       break;
   }
-  slider.noUiSlider.updateOptions(options[imgEffect]);
+  slider.noUiSlider.updateOptions(options);
 };
-
 
 const getFilterStyle = (effect, values, handle) => {
   switch (effect) {
@@ -101,7 +97,6 @@ const getFilterStyle = (effect, values, handle) => {
   }
 };
 
-
 const onSliderChange = (effect) => {
   changeOptions(effect);
   slider.noUiSlider.on('update', (values, handle) => {
@@ -109,7 +104,6 @@ const onSliderChange = (effect) => {
     imgUploadPreview.style.filter = getFilterStyle(effect, values, handle);
   });
 };
-
 
 const getFilterChange = () => {
   effectsItem.forEach((effect) => {
@@ -126,11 +120,9 @@ const getFilterChange = () => {
   });
 };
 
-
 const destroySlider = () => {
   slider.noUiSlider.destroy();
 };
-
 
 const addEffects = () => {
   createSlider();
