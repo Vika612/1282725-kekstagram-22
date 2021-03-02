@@ -8,11 +8,17 @@ const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 let scaleValue = parseInt(scaleControlValue.value);
 
+const checkScaleControls = (borderValue, scaleControlDisabled) => {
+  scaleControlDisabled.disabled = (scaleValue === borderValue);
+};
 
 const setScaleImg = (value) => {
   scaleValue = value;
   scaleControlValue.value = `${scaleValue}%`;
   imgUploadPreview.style.transform = `scale(${scaleValue / 100})`;
+
+  checkScaleControls(MIN_SCALE, scaleControlSmaller);
+  checkScaleControls(MAX_SCALE, scaleControlBigger);
 };
 
 const setScaleStep = (direction) => {
