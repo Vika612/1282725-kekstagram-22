@@ -14,6 +14,9 @@ const validateHashtag = () => {
     if (item.length > MAX_HASHTAG_LENGTH) {
       hashtagInput.setCustomValidity(`Хэштег не должен превышать ${MAX_HASHTAG_LENGTH} символов`);
     }
+    else if (item === '#') {
+      hashtagInput.setCustomValidity('Хэштег не может состоять только из решётки');
+    }
     else if (uniqueHashtags.size !== hashtags.length) {
       hashtagInput.setCustomValidity('Хэштеги не могут повторяться');
     }
@@ -31,12 +34,7 @@ const validateHashtag = () => {
 
 
 const validateLengthComment = () => {
-  if (commentText.value > MAX_COMMENT_LENGTH) {
-    commentText.setCustomValidity(`Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов`);
-  } else {
-    commentText.setCustomValidity('');
-  }
-  commentText.reportValidity();
+  return commentText.value > MAX_COMMENT_LENGTH ? `Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов` : '';
 };
 
 
