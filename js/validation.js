@@ -7,7 +7,7 @@ const hashtagPattern = /^#[A-Za-zА-Яа-я0-9]+$/;
 
 
 const validateHashtag = () => {
-  const hashtags = hashtagInput.value.trim().toLowerCase().split(' ');
+  const hashtags = hashtagInput.value.trim().toLowerCase().split('#');
   const uniqueHashtags = new Set(hashtags);
 
   hashtags.forEach((item) => {
@@ -23,7 +23,7 @@ const validateHashtag = () => {
     else if (hashtags.length > MAX_HASHTAG_COUNT) {
       hashtagInput.setCustomValidity(`Пожалуйста, не более ${MAX_HASHTAG_COUNT} хэштегов`);
     }
-    else if (!hashtagPattern.test(item)) {
+    else if (!hashtagPattern.test(item.trim())) {
       hashtagInput.setCustomValidity('Хэштег должен начинаться с # и содержать только буквы и цифры');
     } else {
       hashtagInput.setCustomValidity('');
