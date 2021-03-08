@@ -7,14 +7,20 @@ const hashtagPattern = /^#[A-Za-zА-Яа-я0-9]+$/;
 
 
 const validateHashtag = () => {
-  const hashtags = hashtagInput.value.trim().toLowerCase().split('#');
+  let hashtags = hashtagInput.value
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/, ' ')
+    .split(' ');
+
   const uniqueHashtags = new Set(hashtags);
 
-  hashtags.forEach((item) => {
-    if (item.length > MAX_HASHTAG_LENGTH) {
+  for (let i = 0; i < hashtags.length; i++) {
+
+    if (hashtags[i].length > MAX_HASHTAG_LENGTH) {
       hashtagInput.setCustomValidity(`Хэштег не должен превышать ${MAX_HASHTAG_LENGTH} символов`);
     }
-    else if (item === '#') {
+    else if (hashtags[i] === '#') {
       hashtagInput.setCustomValidity('Хэштег не может состоять только из решётки');
     }
     else if (uniqueHashtags.size !== hashtags.length) {
@@ -23,12 +29,12 @@ const validateHashtag = () => {
     else if (hashtags.length > MAX_HASHTAG_COUNT) {
       hashtagInput.setCustomValidity(`Пожалуйста, не более ${MAX_HASHTAG_COUNT} хэштегов`);
     }
-    else if (!hashtagPattern.test(item.trim())) {
+    else if (!hashtagPattern.test(hashtags[i].trim())) {
       hashtagInput.setCustomValidity('Хэштег должен начинаться с # и содержать только буквы и цифры');
     } else {
       hashtagInput.setCustomValidity('');
     }
-  })
+  }
   hashtagInput.reportValidity();
 };
 
@@ -50,5 +56,3 @@ commentText.addEventListener('keydown', (evt) => {
   evt.stopPropagation();
 });
 
-
-export {validateHashtag, validateLengthComment};
