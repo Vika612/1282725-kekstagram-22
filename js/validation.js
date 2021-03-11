@@ -19,32 +19,26 @@ const validateHashtag = () => {
 
     if (hashtags[i].length > MAX_HASHTAG_LENGTH) {
       hashtagInput.setCustomValidity(`Хэштег не должен превышать ${MAX_HASHTAG_LENGTH} символов`);
-      hashtagInput.reportValidity();
       return false;
     }
     else if (hashtags[i] === '#') {
       hashtagInput.setCustomValidity('Хэштег не может состоять только из решётки');
-      hashtagInput.reportValidity();
       return false;
     }
     else if (uniqueHashtags.size !== hashtags.length) {
       hashtagInput.setCustomValidity('Хэштеги не могут повторяться');
-      hashtagInput.reportValidity();
       return false;
     }
     else if (hashtags.length > MAX_HASHTAG_COUNT) {
       hashtagInput.setCustomValidity(`Пожалуйста, не более ${MAX_HASHTAG_COUNT} хэштегов`);
-      hashtagInput.reportValidity();
       return false;
     }
     else if (!hashtagPattern.test(hashtags[i].trim())) {
       hashtagInput.setCustomValidity('Хэштег должен начинаться с # и содержать только буквы и цифры');
-      hashtagInput.reportValidity();
       return false;
     }
   }
   hashtagInput.setCustomValidity('');
-  hashtagInput.reportValidity();
 };
 
 
@@ -53,7 +47,11 @@ const validateLengthComment = () => {
 };
 
 
-hashtagInput.addEventListener('input', validateHashtag);
+hashtagInput.addEventListener('input', () => {
+  if (!validateHashtag(hashtagInput.value)) {
+    hashtagInput.reportValidity();
+  }
+});
 
 commentText.addEventListener('input', validateLengthComment);
 
