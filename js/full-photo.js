@@ -1,4 +1,4 @@
-import {pictures} from './thumbnails.js';
+import {renderPictures} from './thumbnails.js';
 import {isEscEvent} from './util.js';
 
 const AVATAR_WIDTH = 35;
@@ -56,6 +56,7 @@ const onPreviewClick = (preview, info) => {
     commentsLoader.classList.add('hidden');
     createBigPictureContent(info);
     openModal();
+    renderPictures();
   });
 };
 
