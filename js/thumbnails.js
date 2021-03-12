@@ -1,11 +1,10 @@
-// import {photos} from './data.js';
+import {onPreviewClick} from './full-photo.js';
 
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
-// const pictures = photos;
 
 const renderPictures = (pictures) => {
   const fragment = document.createDocumentFragment();
@@ -17,8 +16,9 @@ const renderPictures = (pictures) => {
     picture.querySelector('.picture__comments').textContent = comments.length;
     fragment.appendChild(picture);
   });
-
   picturesList.appendChild(fragment);
+  onPreviewClick(pictures);
 };
+
 
 export {renderPictures};
