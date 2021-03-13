@@ -2,6 +2,7 @@ import {isEscEvent} from './util.js';
 import {setScaleImg} from './img-scale.js';
 import {addEffects, destroySlider} from './img-effects.js';
 import {sendData} from './data.js';
+import {showMessage} from './message.js';
 
 const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
@@ -43,13 +44,12 @@ uploadCancel.addEventListener('click', () => {
   closeUploadImg();
 });
 
-const setFormSubmit = (onSuccess, onError) => {
+const setFormSubmit = () => {
   uploadSubmit.addEventListener('submit', (evt) => {
     evt.preventDefault(evt);
 
     sendData(
-      () => onSuccess(),
-      () => onError(),
+      showMessage(),
       new FormData(evt.target),
     );
   });
