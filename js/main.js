@@ -1,10 +1,16 @@
-import {getData} from './api.js';
+import {getData} from './data.js';
 import {renderPictures} from './thumbnails.js';
+import {closeUploadImg, setFormSubmit} from './img-upload.js';
+import {showAlert} from './util.js';
 import './full-photo.js';
-import './img-upload.js';
 import './validation.js';
 
+getData(
+  (pictures) => {
+    renderPictures(pictures);
+  },
+  () => {showAlert() },
+);
 
-getData((pictures) => {
-  renderPictures(pictures);
-});
+
+setFormSubmit(closeUploadImg);
