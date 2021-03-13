@@ -15,9 +15,9 @@ const renderPictures = (pictures) => {
     picture.querySelector('.picture__likes').textContent = likes;
     picture.querySelector('.picture__comments').textContent = comments.length;
     fragment.appendChild(picture);
+    onPreviewClick(picture, {url, likes, comments});
   });
   picturesList.appendChild(fragment);
-  onPreviewClick(pictures);
 };
 
 

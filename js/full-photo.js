@@ -1,10 +1,8 @@
-// import {renderPictures} from './thumbnails.js';
 import {isEscEvent} from './util.js';
 
 const AVATAR_WIDTH = 35;
 const AVATAR_HEIGHT = 35;
 const body = document.querySelector('body');
-// const previewsList = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img > img');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -50,11 +48,11 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
 };
 
 
-const onPreviewClick = (preview) => {
+const onPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
     socialCommentCount.classList.add('hidden');
     commentsLoader.classList.add('hidden');
-    createBigPictureContent();
+    createBigPictureContent(info);
     openModal();
   });
 };

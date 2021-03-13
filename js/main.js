@@ -1,4 +1,3 @@
-// import './data.js';
 import {getData} from './api.js';
 import {renderPictures} from './thumbnails.js';
 import './full-photo.js';
