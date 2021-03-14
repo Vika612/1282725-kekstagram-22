@@ -2,6 +2,12 @@ const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
 };
 
+const onEscDown = (evt) => {
+  if (isEscEvent) {
+    evt.stopPropagation();
+  }
+};
+
 const showAlert = () => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
@@ -19,4 +25,4 @@ const showAlert = () => {
   document.body.append(alertContainer);
 }
 
-export {isEscEvent, showAlert};
+export {isEscEvent, onEscDown, showAlert};

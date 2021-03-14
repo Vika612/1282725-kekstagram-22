@@ -1,3 +1,5 @@
+import {onEscDown} from './util.js';
+
 const MAX_HASHTAG_COUNT = 5;
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_COMMENT_LENGTH = 140;
@@ -41,25 +43,26 @@ const validateHashtag = () => {
   hashtagInput.setCustomValidity('');
 };
 
-
-const validateLengthComment = () => {
-  return commentText.value > MAX_COMMENT_LENGTH ? `Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов` : '';
-};
-
-
 hashtagInput.addEventListener('input', () => {
   if (!validateHashtag(hashtagInput.value)) {
     hashtagInput.reportValidity();
   }
 });
+hashtagInput.addEventListener('keydown', onEscDown);
+
+
+
+const validateLengthComment = () => {
+  return commentText.value > MAX_COMMENT_LENGTH ? `Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов` : '';
+};
 
 commentText.addEventListener('input', validateLengthComment);
+commentText.addEventListener('keydown', onEscDown);
 
-hashtagInput.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
 
-commentText.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
+const resetFields = () => {
+  hashtagInput.value = '';
+  commentText.value = '';
+};
 
+export {resetFields};

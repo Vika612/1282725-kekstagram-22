@@ -3,6 +3,7 @@ import {setScaleImg} from './img-scale.js';
 import {addEffects, destroySlider} from './img-effects.js';
 import {sendData} from './data.js';
 import {showMessage} from './message.js';
+import {resetFields} from './validation.js';
 
 const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
@@ -34,6 +35,7 @@ const closeUploadImg = () => {
   uploadFile.value = '';
   imgUploadPreview.style = '';
   destroySlider();
+  resetFields();
 };
 
 uploadFile.addEventListener('change', () => {
