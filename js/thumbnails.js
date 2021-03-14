@@ -9,13 +9,13 @@ const pictureTemplate = document.querySelector('#picture')
 const renderPictures = (pictures) => {
   const fragment = document.createDocumentFragment();
 
-  pictures.forEach(({url, likes, comments}) => {
+  pictures.forEach((info) => {
     const picture = pictureTemplate.cloneNode(true);
-    picture.querySelector('.picture__img').src = url;
-    picture.querySelector('.picture__likes').textContent = likes;
-    picture.querySelector('.picture__comments').textContent = comments.length;
+    picture.querySelector('.picture__img').src = info.url;
+    picture.querySelector('.picture__likes').textContent = info.likes;
+    picture.querySelector('.picture__comments').textContent = info.comments.length;
     fragment.appendChild(picture);
-    onPreviewClick(picture, {url, likes, comments});
+    onPreviewClick(picture, info);
   });
   picturesList.appendChild(fragment);
 };

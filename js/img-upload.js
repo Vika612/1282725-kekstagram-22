@@ -10,7 +10,7 @@ const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
-const uploadSubmit = document.querySelector('#upload-submit');
+const uploadSubmit = document.querySelector('.img-upload__form');
 
 const onEscPress = (evt) => {
   if(isEscEvent(evt)) {
@@ -44,12 +44,27 @@ uploadCancel.addEventListener('click', () => {
   closeUploadImg();
 });
 
+const onSuccessMessage = () => {
+  showMessage('success');
+  resetPage();
+};
+
+const onErrorMessage = () => {
+  showMessage('error');
+  resetPage();
+};
+
+const resetPage = () => {
+  closeUploadImg();
+};
+
 const setFormSubmit = () => {
   uploadSubmit.addEventListener('submit', (evt) => {
-    evt.preventDefault(evt);
+    evt.preventDefault();
 
     sendData(
-      showMessage(),
+      onSuccessMessage,
+      onErrorMessage,
       new FormData(evt.target),
     );
   });
