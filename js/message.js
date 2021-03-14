@@ -12,6 +12,14 @@ const successText = successTemplate.cloneNode(true);
 const errorText = errorTemplate.cloneNode(true);
 
 
+const closeOut = (evt) => {
+  const target = evt.target.className;
+  if (target === 'success' || target === 'success__button' ||
+   target === 'error' || target === 'error__button') {
+    closeMessage();
+  }
+};
+
 const showMessage = (result) => {
   switch (result) {
     case 'success':
@@ -21,17 +29,17 @@ const showMessage = (result) => {
       main.appendChild(errorText);
       break;
   }
-  document.addEventListener('click', closeMessage);
+  document.addEventListener('click', closeOut);
   document.addEventListener('keydown', closeMessage);
 };
-
 
 const closeMessage = () => {
   successText.remove();
   errorText.remove();
 
-  document.removeEventListener('click', closeMessage);
+  document.removeEventListener('click', closeOut);
   document.removeEventListener('keydown', closeMessage);
 };
+
 
 export {showMessage};

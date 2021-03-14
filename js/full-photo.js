@@ -34,7 +34,6 @@ const createNewComment = ({avatar, name, message}) => {
   socialComments.appendChild(newComment);
 };
 
-
 const createBigPictureContent = ({url, likes, comments, description}) => {
   socialComments.innerHTML = '';
   bigPictureImg.src = url;
@@ -47,7 +46,6 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   }
 };
 
-
 const onPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
     socialCommentCount.classList.add('hidden');
@@ -56,7 +54,6 @@ const onPreviewClick = (preview, info) => {
     openModal();
   });
 };
-
 
 const onModalEscPress = (evt) => {
   if(isEscEvent(evt)) {

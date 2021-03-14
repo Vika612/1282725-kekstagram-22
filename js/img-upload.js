@@ -13,6 +13,7 @@ const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const uploadSubmit = document.querySelector('.img-upload__form');
 
+
 const onEscPress = (evt) => {
   if(isEscEvent(evt)) {
     evt.preventDefault();
@@ -37,14 +38,6 @@ const closeUploadImg = () => {
   destroySlider();
   resetFields();
 };
-
-uploadFile.addEventListener('change', () => {
-  openUploadImg();
-});
-
-uploadCancel.addEventListener('click', () => {
-  closeUploadImg();
-});
 
 const onSuccessMessage = () => {
   showMessage('success');
@@ -71,5 +64,14 @@ const setFormSubmit = () => {
     );
   });
 };
+
+uploadFile.addEventListener('change', () => {
+  openUploadImg();
+});
+
+uploadCancel.addEventListener('click', () => {
+  closeUploadImg();
+});
+
 
 export {setFormSubmit, closeUploadImg};

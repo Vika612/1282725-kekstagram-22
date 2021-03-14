@@ -8,6 +8,7 @@ const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 let scaleValue = parseInt(scaleControlValue.value);
 
+
 const checkScaleControls = (borderValue, scaleControlDisabled) => {
   scaleControlDisabled.disabled = (scaleValue === borderValue);
 };

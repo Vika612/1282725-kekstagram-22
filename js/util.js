@@ -2,7 +2,7 @@ const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
 };
 
-const onEscDown = (evt) => {
+const onEscKeyDown = (evt) => {
   if (isEscEvent) {
     evt.stopPropagation();
   }
@@ -25,4 +25,5 @@ const showAlert = () => {
   document.body.append(alertContainer);
 }
 
-export {isEscEvent, onEscDown, showAlert};
+
+export {isEscEvent, onEscKeyDown, showAlert};
