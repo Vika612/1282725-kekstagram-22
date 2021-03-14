@@ -13,9 +13,9 @@ const errorText = errorTemplate.cloneNode(true);
 
 
 const closeOut = (evt) => {
-  const target = evt.target.className;
-  if (target === 'success' || target === 'success__button' ||
-   target === 'error' || target === 'error__button') {
+  const el = evt.target;
+  if (el.classList.contains('success') || el.classList.contains('success__button') ||
+  el.classList.contains('error') || el.classList.contains('error__button')) {
     closeMessage();
   }
 };
