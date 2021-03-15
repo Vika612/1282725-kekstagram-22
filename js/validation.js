@@ -1,3 +1,5 @@
+import {onEscKeyDown} from './util.js';
+
 const MAX_HASHTAG_COUNT = 5;
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_COMMENT_LENGTH = 140;
@@ -19,49 +21,48 @@ const validateHashtag = () => {
 
     if (hashtags[i].length > MAX_HASHTAG_LENGTH) {
       hashtagInput.setCustomValidity(`Хэштег не должен превышать ${MAX_HASHTAG_LENGTH} символов`);
-      hashtagInput.reportValidity();
       return false;
     }
     else if (hashtags[i] === '#') {
       hashtagInput.setCustomValidity('Хэштег не может состоять только из решётки');
-      hashtagInput.reportValidity();
       return false;
     }
     else if (uniqueHashtags.size !== hashtags.length) {
       hashtagInput.setCustomValidity('Хэштеги не могут повторяться');
-      hashtagInput.reportValidity();
       return false;
     }
     else if (hashtags.length > MAX_HASHTAG_COUNT) {
       hashtagInput.setCustomValidity(`Пожалуйста, не более ${MAX_HASHTAG_COUNT} хэштегов`);
-      hashtagInput.reportValidity();
       return false;
     }
     else if (!hashtagPattern.test(hashtags[i].trim())) {
       hashtagInput.setCustomValidity('Хэштег должен начинаться с # и содержать только буквы и цифры');
-      hashtagInput.reportValidity();
       return false;
     }
   }
   hashtagInput.setCustomValidity('');
-  hashtagInput.reportValidity();
 };
-
 
 const validateLengthComment = () => {
   return commentText.value > MAX_COMMENT_LENGTH ? `Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов` : '';
 };
 
+const resetFields = () => {
+  hashtagInput.value = '';
+  commentText.value = '';
+};
 
-hashtagInput.addEventListener('input', validateHashtag);
+hashtagInput.addEventListener('input', () => {
+  if (!validateHashtag(hashtagInput.value)) {
+    hashtagInput.reportValidity();
+  }
+});
 
 commentText.addEventListener('input', validateLengthComment);
 
-hashtagInput.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
+hashtagInput.addEventListener('keydown', onEscKeyDown);
 
-commentText.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
+commentText.addEventListener('keydown', onEscKeyDown);
 
+
+export {resetFields};

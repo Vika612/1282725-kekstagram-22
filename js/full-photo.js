@@ -1,10 +1,8 @@
-import {pictures} from './thumbnails.js';
 import {isEscEvent} from './util.js';
 
 const AVATAR_WIDTH = 35;
 const AVATAR_HEIGHT = 35;
 const body = document.querySelector('body');
-const previewsList = document.querySelectorAll('.picture');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img > img');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -36,7 +34,6 @@ const createNewComment = ({avatar, name, message}) => {
   socialComments.appendChild(newComment);
 };
 
-
 const createBigPictureContent = ({url, likes, comments, description}) => {
   socialComments.innerHTML = '';
   bigPictureImg.src = url;
@@ -49,7 +46,6 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   }
 };
 
-
 const onPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
     socialCommentCount.classList.add('hidden');
@@ -58,7 +54,6 @@ const onPreviewClick = (preview, info) => {
     openModal();
   });
 };
-
 
 const onModalEscPress = (evt) => {
   if(isEscEvent(evt)) {
@@ -84,6 +79,4 @@ bigPictureClose.addEventListener('click', () => {
 });
 
 
-for (let i = 0; i < previewsList.length; i++) {
-  onPreviewClick(previewsList[i], pictures[i]);
-}
+export {onPreviewClick};

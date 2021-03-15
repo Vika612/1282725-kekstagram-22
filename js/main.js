@@ -1,5 +1,15 @@
-import './data.js';
-import './thumbnails.js';
-import './full-photo.js';
-import './img-upload.js';
-import './validation.js';
+import {getData} from './data.js';
+import {renderPictures} from './thumbnails.js';
+import {closeUploadImg, setFormSubmit} from './img-upload.js';
+import {showAlert} from './util.js';
+
+
+getData(
+  (pictures) => {
+    renderPictures(pictures);
+  },
+  () => {showAlert() },
+);
+
+
+setFormSubmit(closeUploadImg);
