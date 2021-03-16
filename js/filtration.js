@@ -32,12 +32,15 @@ const renderFilter = (pictures) => {
   const onFilterChange = (evt) => {
     toggleFilters(evt.target);
 
-    if (evt.target.id === 'filter-random') {
-      renderRandomPictures(pictures);
-    } else if (evt.target.id === 'filter-discussed') {
-      renderPictures(pictures.slice().sort(sortPicturesByComments));
-    } else {
-      renderPictures(pictures);
+    switch (evt.target.id) {
+      case 'filter-random':
+        renderRandomPictures(pictures);
+        break;
+      case 'filter-discussed':
+        renderPictures(pictures.slice().sort(sortPicturesByComments));
+        break;
+      default:
+        renderPictures(pictures);
     }
   }
   filterForm.addEventListener('click', onFilterChange);
