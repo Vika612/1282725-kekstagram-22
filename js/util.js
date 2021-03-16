@@ -1,3 +1,13 @@
+const getRandomInteger = (min, max) => {
+  if (min >= 0 && min < max) {
+    return Math.floor(Math.random() * (max + 1 - min) + min);
+  }
+};
+
+const getRandomArrayElement = (elements) => {
+  return elements[getRandomInteger(0, elements.length - 1)];
+};
+
 const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
 };
@@ -26,4 +36,4 @@ const showAlert = () => {
 }
 
 
-export {isEscEvent, onEscKeyDown, showAlert};
+export {getRandomInteger, getRandomArrayElement, isEscEvent, onEscKeyDown, showAlert};
