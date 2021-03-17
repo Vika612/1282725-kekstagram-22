@@ -1,4 +1,6 @@
 import {renderPictures} from './thumbnails.js';
+import {DEBOUNCE_INTERVAL, debounce} from './util.js';
+
 
 const PIC_COUNT_RANDOM = 10;
 
@@ -29,7 +31,7 @@ const toggleFilters = (currentBtn) => {
 const renderFilter = (pictures) => {
   filter.classList.remove('img-filters--inactive');
 
-  const onFilterChange = (evt) => {
+  const onFilterChange = debounce((evt) => {
     toggleFilters(evt.target);
 
     switch (evt.target.id) {
@@ -42,7 +44,8 @@ const renderFilter = (pictures) => {
       default:
         renderPictures(pictures);
     }
-  }
+  }, DEBOUNCE_INTERVAL)
+
   filterForm.addEventListener('click', onFilterChange);
 };
 

@@ -1,11 +1,17 @@
-const getRandomInteger = (min, max) => {
-  if (min >= 0 && min < max) {
-    return Math.floor(Math.random() * (max + 1 - min) + min);
-  }
-};
+const DEBOUNCE_INTERVAL = 500;
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomInteger(0, elements.length - 1)];
+const debounce = (cb) => {
+  let lastTimeout = null;
+
+  return function () {
+    const parameters = arguments;
+    if (lastTimeout) {
+      clearTimeout(lastTimeout);
+    }
+    lastTimeout = setTimeout(function () {
+      cb.apply(null, parameters);
+    }, DEBOUNCE_INTERVAL);
+  };
 };
 
 const isEscEvent = (evt) => {
@@ -36,4 +42,4 @@ const showAlert = () => {
 }
 
 
-export {getRandomInteger, getRandomArrayElement, isEscEvent, onEscKeyDown, showAlert};
+export {DEBOUNCE_INTERVAL, debounce, isEscEvent, onEscKeyDown, showAlert};
