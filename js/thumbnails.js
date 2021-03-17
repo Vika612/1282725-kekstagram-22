@@ -17,6 +17,12 @@ const renderPictures = (pictures) => {
     fragment.appendChild(picture);
     onPreviewClick(picture, info);
   });
+
+  Array.from(picturesList.children).forEach((item) => {
+    if (item.classList.contains('picture')) {
+      item.remove();
+    }
+  });
   picturesList.appendChild(fragment);
 };
 

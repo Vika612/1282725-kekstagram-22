@@ -8,7 +8,7 @@ import {renderFilter} from './filtration.js';
 getData(
   (pictures) => {
     renderPictures(pictures);
-    renderFilter(() => renderPictures(pictures))
+    renderFilter(pictures)
   },
   () => {showAlert() },
 );
