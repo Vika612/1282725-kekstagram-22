@@ -3,10 +3,14 @@ import {DEBOUNCE_INTERVAL, debounce} from './util.js';
 
 
 const PIC_COUNT_RANDOM = 10;
+const FilterType = {
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
+};
 
 const filter = document.querySelector('.img-filters');
 const filterForm = filter.querySelector('.img-filters__form');
-const filterBtns = filterForm.querySelectorAll('.img-filters__button');
+let currentFilterItem = filterForm.querySelector('.img-filters__button--active');
 
 
 const renderRandomPictures = (pictures) => {
@@ -14,35 +18,35 @@ const renderRandomPictures = (pictures) => {
   renderPictures(picturesRandom.slice(0, PIC_COUNT_RANDOM));
 };
 
-const sortPicturesByComments = (pictureA, pictureB) => {
-  const rankA = pictureA.comments.length;
-  const rankB = pictureB.comments.length;
-
-  return rankB - rankA;
+const sortPicturesByComments = (a, b) => {
+  return b.comments.length - a.comments.length;
 };
 
 const toggleFilters = (currentBtn) => {
-  for (const filterBtn of filterBtns) {
-    filterBtn.classList.remove('img-filters__button--active');
+  if (currentFilterItem) {
+    currentFilterItem.classList.remove('img-filters__button--active');
   }
-  currentBtn.classList.add('img-filters__button--active');
+  currentFilterItem = currentBtn;
+  currentFilterItem.classList.add('img-filters__button--active');
 };
 
 const renderFilter = (pictures) => {
   filter.classList.remove('img-filters--inactive');
 
   const onFilterChange = debounce((evt) => {
-    toggleFilters(evt.target);
+    if (currentFilterItem !== evt.target) {
+      toggleFilters(evt.target);
 
-    switch (evt.target.id) {
-      case 'filter-random':
-        renderRandomPictures(pictures);
-        break;
-      case 'filter-discussed':
-        renderPictures(pictures.slice().sort(sortPicturesByComments));
-        break;
-      default:
-        renderPictures(pictures);
+      switch (evt.target.id) {
+        case FilterType.RANDOM:
+          renderRandomPictures(pictures);
+          break;
+        case FilterType.DISCUSSED:
+          renderPictures(pictures.slice().sort(sortPicturesByComments));
+          break;
+        default:
+          renderPictures(pictures);
+      }
     }
   }, DEBOUNCE_INTERVAL)
 
