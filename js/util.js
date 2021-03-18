@@ -1,3 +1,19 @@
+const DEBOUNCE_INTERVAL = 500;
+
+const debounce = (cb) => {
+  let lastTimeout = null;
+
+  return function () {
+    const parameters = arguments;
+    if (lastTimeout) {
+      clearTimeout(lastTimeout);
+    }
+    lastTimeout = setTimeout(function () {
+      cb.apply(null, parameters);
+    }, DEBOUNCE_INTERVAL);
+  };
+};
+
 const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
 };
@@ -26,4 +42,4 @@ const showAlert = () => {
 }
 
 
-export {isEscEvent, onEscKeyDown, showAlert};
+export {DEBOUNCE_INTERVAL, debounce, isEscEvent, onEscKeyDown, showAlert};
