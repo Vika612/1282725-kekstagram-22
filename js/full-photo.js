@@ -1,7 +1,9 @@
 import {isEscEvent} from './util.js';
 
+const COMMENTS_ADDED = 5;
 const AVATAR_WIDTH = 35;
 const AVATAR_HEIGHT = 35;
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img > img');
@@ -12,6 +14,7 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
+let init = 0;
 
 
 const createNewComment = ({avatar, name, message}) => {
@@ -31,8 +34,19 @@ const createNewComment = ({avatar, name, message}) => {
   newText.textContent = message;
   newComment.appendChild(newText);
 
-  socialComments.appendChild(newComment);
+  return newComment;
 };
+
+const renderComments = (comments) => {
+  for (let i = 0; i < COMMENTS_ADDED && i < comments.length; i++) {
+    socialComments.appendChild(createNewComment(comments[i]));
+  }
+
+  init += COMMENTS_ADDED;
+  if (init >= comments.length) {
+    commentsLoader.classList.add('hidden');
+  }
+}
 
 const createBigPictureContent = ({url, likes, comments, description}) => {
   socialComments.innerHTML = '';
@@ -41,15 +55,20 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   commentsCount.textContent = comments.length;
   socialCaption.textContent = description;
 
-  for (let i = 0; i < comments.length; i++) {
-    createNewComment(comments[i]);
+  init = 0;
+  if (comments.length > COMMENTS_ADDED) {
+    commentsLoader.classList.remove('hidden');
   }
+  renderComments(comments);
+  commentsLoader.onclick = () => {
+    renderComments(comments);
+  }
+  window.console.log(comments);
 };
 
 const onPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
     socialCommentCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
     createBigPictureContent(info);
     openModal();
   });
