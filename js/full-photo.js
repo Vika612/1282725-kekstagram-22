@@ -42,7 +42,7 @@ const renderComments = (comments) => {
   for (let i = 0; i < COMMENTS_PER_STEP && i < comments.length; i++) {
     socialComments.appendChild(createNewComment(comments[i]));
   }
-}
+};
 
 const createBigPictureContent = ({url, likes, comments, description}) => {
   allComments = comments;
@@ -61,18 +61,18 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   renderComments(comments);
 
   if (loadedComments <= allComments.length) {
-    commentsLoader.addEventListener('click', moreCommentsClick);
+    commentsLoader.addEventListener('click', onLoadButtonClick);
   }
 };
 
-const moreCommentsClick = () => {
+const onLoadButtonClick = () => {
   if (loadedComments < allComments.length) {
     renderComments(allComments.slice(loadedComments, loadedComments + COMMENTS_PER_STEP));
     loadedComments += COMMENTS_PER_STEP;
 
     if (loadedComments >= allComments.length) {
       commentsLoader.classList.add('hidden');
-      commentsLoader.removeEventListener('click', moreCommentsClick);
+      commentsLoader.removeEventListener('click', onLoadButtonClick);
     }
   }
 };
