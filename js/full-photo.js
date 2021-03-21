@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
 
-const COMMENTS_ADDED = 5;
+const COMMENTS_PER_STEP = 5;
 const AVATAR_WIDTH = 35;
 const AVATAR_HEIGHT = 35;
 
@@ -14,7 +14,8 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
-let init = 0;
+let loadedComments = 0;
+let allComments = [];
 
 
 const createNewComment = ({avatar, name, message}) => {
@@ -38,32 +39,42 @@ const createNewComment = ({avatar, name, message}) => {
 };
 
 const renderComments = (comments) => {
-  for (let i = 0; i < COMMENTS_ADDED && i < comments.length; i++) {
+  for (let i = 0; i < COMMENTS_PER_STEP && i < comments.length; i++) {
     socialComments.appendChild(createNewComment(comments[i]));
-  }
-
-  init += COMMENTS_ADDED;
-  if (init >= comments.length) {
-    commentsLoader.classList.add('hidden');
   }
 }
 
 const createBigPictureContent = ({url, likes, comments, description}) => {
+  allComments = comments;
+
   socialComments.innerHTML = '';
   bigPictureImg.src = url;
   likesCount.textContent = likes;
   commentsCount.textContent = comments.length;
   socialCaption.textContent = description;
 
-  init = 0;
-  if (comments.length > COMMENTS_ADDED) {
+  loadedComments = COMMENTS_PER_STEP;
+  if (comments.length > COMMENTS_PER_STEP) {
     commentsLoader.classList.remove('hidden');
   }
+
   renderComments(comments);
-  commentsLoader.onclick = () => {
-    renderComments(comments);
+
+  if (loadedComments <= allComments.length) {
+    commentsLoader.addEventListener('click', moreCommentsClick);
   }
-  window.console.log(comments);
+};
+
+const moreCommentsClick = () => {
+  if (loadedComments < allComments.length) {
+    renderComments(allComments.slice(loadedComments, loadedComments + COMMENTS_PER_STEP));
+    loadedComments += COMMENTS_PER_STEP;
+
+    if (loadedComments >= allComments.length) {
+      commentsLoader.classList.add('hidden');
+      commentsLoader.removeEventListener('click', moreCommentsClick);
+    }
+  }
 };
 
 const onPreviewClick = (preview, info) => {
