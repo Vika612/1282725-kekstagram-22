@@ -32,7 +32,6 @@ const closeUploadImg = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscPress);
-  uploadFile.value = '';
   imgUploadPreview.style = '';
   imgUploadForm.reset();
   destroySlider();
