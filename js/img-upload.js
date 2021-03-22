@@ -3,7 +3,6 @@ import {setScaleImg} from './img-scale.js';
 import {addEffects, destroySlider} from './img-effects.js';
 import {sendData} from './data.js';
 import {showMessage} from './message.js';
-import {resetFields} from './validation.js';
 
 const DEFAULT_SCALE = 100;
 const body = document.querySelector('body');
@@ -11,7 +10,7 @@ const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
-const uploadSubmit = document.querySelector('.img-upload__form');
+const imgUploadForm = document.querySelector('.img-upload__form');
 
 
 const onEscPress = (evt) => {
@@ -33,10 +32,9 @@ const closeUploadImg = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscPress);
-  uploadFile.value = '';
   imgUploadPreview.style = '';
+  imgUploadForm.reset();
   destroySlider();
-  resetFields();
 };
 
 const onSuccessMessage = () => {
@@ -54,7 +52,7 @@ const resetPage = () => {
 };
 
 const setFormSubmit = () => {
-  uploadSubmit.addEventListener('submit', (evt) => {
+  imgUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
