@@ -47,11 +47,6 @@ const validateLengthComment = () => {
   return commentText.value > MAX_COMMENT_LENGTH ? `Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов` : '';
 };
 
-const resetFields = () => {
-  hashtagInput.value = '';
-  commentText.value = '';
-};
-
 hashtagInput.addEventListener('input', () => {
   if (!validateHashtag(hashtagInput.value)) {
     hashtagInput.reportValidity();
@@ -63,6 +58,3 @@ commentText.addEventListener('input', validateLengthComment);
 hashtagInput.addEventListener('keydown', onEscKeyDown);
 
 commentText.addEventListener('keydown', onEscKeyDown);
-
-
-export {resetFields};

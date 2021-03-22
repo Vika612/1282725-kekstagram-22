@@ -128,6 +128,7 @@ const destroySlider = () => {
 const addEffects = () => {
   createSlider();
   getFilterChange();
+  slider.classList.add('hidden');
 };
 
 
