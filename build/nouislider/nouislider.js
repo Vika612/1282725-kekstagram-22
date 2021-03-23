@@ -1,10 +1,13 @@
 /*! nouislider - 14.6.3 - 11/19/2020 */
 (function(factory) {
+  // eslint-disable-next-line no-undef
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
+    // eslint-disable-next-line no-undef
     define([], factory);
   } else if (typeof exports === 'object') {
     // Node/CommonJS
+    // eslint-disable-next-line no-undef
     module.exports = factory();
   } else {
     // Browser globals
@@ -375,6 +378,7 @@
 
     // Map the object keys to an array.
     for (index in entry) {
+      // eslint-disable-next-line no-prototype-builtins
       if (entry.hasOwnProperty(index)) {
         ordered.push([entry[index], index]);
       }
@@ -979,6 +983,7 @@
       parsed.cssClasses = {};
 
       for (let key in entry) {
+        // eslint-disable-next-line no-prototype-builtins
         if (!entry.hasOwnProperty(key)) {
           continue;
         }
@@ -2464,6 +2469,7 @@
       removeEvent(INTERNAL_EVENT_NS.tooltips);
 
       for (let key in options.cssClasses) {
+        // eslint-disable-next-line no-prototype-builtins
         if (!options.cssClasses.hasOwnProperty(key)) {
           continue;
         }
