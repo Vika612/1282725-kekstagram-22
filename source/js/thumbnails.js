@@ -1,4 +1,4 @@
-import {onPreviewClick} from './full-photo.js';
+import {setPreviewClick} from './full-photo.js';
 
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
@@ -15,7 +15,7 @@ const renderPictures = (pictures) => {
     picture.querySelector('.picture__likes').textContent = info.likes;
     picture.querySelector('.picture__comments').textContent = info.comments.length;
     fragment.appendChild(picture);
-    onPreviewClick(picture, info);
+    setPreviewClick(picture, info);
   });
 
   Array.from(picturesList.children).forEach((item) => {

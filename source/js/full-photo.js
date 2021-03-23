@@ -14,7 +14,7 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const socialComments = bigPicture.querySelector('.social__comments');
-let loadedComments = 0;
+let loadedCommentsAmount = 0;
 let allComments = [];
 
 
@@ -53,31 +53,31 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   commentsCount.textContent = comments.length;
   socialCaption.textContent = description;
 
-  loadedComments = COMMENTS_PER_STEP;
+  loadedCommentsAmount = COMMENTS_PER_STEP;
   if (comments.length > COMMENTS_PER_STEP) {
     commentsLoader.classList.remove('hidden');
   }
 
   renderComments(comments.slice(0, COMMENTS_PER_STEP));
 
-  if (loadedComments <= allComments.length) {
+  if (loadedCommentsAmount <= allComments.length) {
     commentsLoader.addEventListener('click', onLoadButtonClick);
   }
 };
 
 const onLoadButtonClick = () => {
-  if (loadedComments < allComments.length) {
-    renderComments(allComments.slice(loadedComments, loadedComments + COMMENTS_PER_STEP));
-    loadedComments += COMMENTS_PER_STEP;
+  if (loadedCommentsAmount < allComments.length) {
+    renderComments(allComments.slice(loadedCommentsAmount, loadedCommentsAmount + COMMENTS_PER_STEP));
+    loadedCommentsAmount += COMMENTS_PER_STEP;
 
-    if (loadedComments >= allComments.length) {
+    if (loadedCommentsAmount >= allComments.length) {
       commentsLoader.classList.add('hidden');
       commentsLoader.removeEventListener('click', onLoadButtonClick);
     }
   }
 };
 
-const onPreviewClick = (preview, info) => {
+const setPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
     socialCommentCount.classList.add('hidden');
     createBigPictureContent(info);
@@ -85,7 +85,7 @@ const onPreviewClick = (preview, info) => {
   });
 };
 
-const onModalEscPress = (evt) => {
+const onDocumentKeyDown = (evt) => {
   if(isEscEvent(evt)) {
     evt.preventDefault();
     closeModal();
@@ -95,13 +95,13 @@ const onModalEscPress = (evt) => {
 const openModal = () => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onModalEscPress);
+  document.addEventListener('keydown', onDocumentKeyDown);
 };
 
 const closeModal = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onModalEscPress);
+  document.removeEventListener('keydown', onDocumentKeyDown);
 };
 
 bigPictureClose.addEventListener('click', () => {
@@ -109,4 +109,4 @@ bigPictureClose.addEventListener('click', () => {
 });
 
 
-export {onPreviewClick};
+export {setPreviewClick};
