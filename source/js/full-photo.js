@@ -39,9 +39,9 @@ const createNewComment = ({avatar, name, message}) => {
 };
 
 const renderComments = (comments) => {
-  for (let i = 0; i < COMMENTS_PER_STEP && i < comments.length; i++) {
-    socialComments.appendChild(createNewComment(comments[i]));
-  }
+  comments.forEach((comment) => {
+    socialComments.appendChild(createNewComment(comment));
+  });
 };
 
 const createBigPictureContent = ({url, likes, comments, description}) => {
@@ -58,7 +58,7 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
     commentsLoader.classList.remove('hidden');
   }
 
-  renderComments(comments);
+  renderComments(comments.slice(0, COMMENTS_PER_STEP));
 
   if (loadedComments <= allComments.length) {
     commentsLoader.addEventListener('click', onLoadButtonClick);
