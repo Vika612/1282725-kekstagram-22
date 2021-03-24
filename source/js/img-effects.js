@@ -1,7 +1,8 @@
 /* global noUiSlider:readonly */
 
-const slider = document.querySelector('.effect-level__slider');
-const effectLevelValue = document.querySelector('.effect-level__value');
+const containerSlider = document.querySelector('.effect-level');
+const slider = containerSlider.querySelector('.effect-level__slider');
+const effectLevelValue = containerSlider.querySelector('.effect-level__value');
 const effectsItem = document.querySelectorAll('.effects__radio');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 let options;
@@ -110,10 +111,10 @@ const getFilterChange = () => {
   effectsItem.forEach((effect) => {
     effect.addEventListener('click', () => {
       if (effect.value === 'none') {
-        slider.classList.add('hidden');
+        containerSlider.classList.add('hidden');
         imgUploadPreview.style.filter = 'none';
       } else {
-        slider.classList.remove('hidden');
+        containerSlider.classList.remove('hidden');
         imgUploadPreview.classList.add(`.effects__preview--${effect.value}`);
         onSliderChange(effect.value);
       }
@@ -128,7 +129,7 @@ const destroySlider = () => {
 const addEffects = () => {
   createSlider();
   getFilterChange();
-  slider.classList.add('hidden');
+  containerSlider.classList.add('hidden');
 };
 
 
