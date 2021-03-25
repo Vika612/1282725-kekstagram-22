@@ -8,7 +8,7 @@ const commentText = document.querySelector('.text__description');
 const hashtagPattern = /^#[A-Za-zА-Яа-я0-9]+$/;
 
 
-const validateHashtag = () => {
+const onFieldHashtagValidate = () => {
   let hashtags = hashtagInput.value
     .trim()
     .toLowerCase()
@@ -43,17 +43,17 @@ const validateHashtag = () => {
   hashtagInput.setCustomValidity('');
 };
 
-const validateLengthComment = () => {
+const onFieldCommentValidate = () => {
   return commentText.value > MAX_COMMENT_LENGTH ? `Комментарий не должен превышать ${MAX_COMMENT_LENGTH} символов` : '';
 };
 
 hashtagInput.addEventListener('input', () => {
-  if (!validateHashtag(hashtagInput.value)) {
+  if (!onFieldHashtagValidate(hashtagInput.value)) {
     hashtagInput.reportValidity();
   }
 });
 
-commentText.addEventListener('input', validateLengthComment);
+commentText.addEventListener('input', onFieldCommentValidate);
 
 hashtagInput.addEventListener('keydown', onEscKeyDown);
 
