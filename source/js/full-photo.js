@@ -56,6 +56,11 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   loadedCommentsAmount = COMMENTS_PER_STEP;
   if (comments.length > COMMENTS_PER_STEP) {
     commentsLoader.classList.remove('hidden');
+    socialCommentCount.childNodes[0].textContent = `${loadedCommentsAmount} из `;
+  }
+  if (comments.length <= COMMENTS_PER_STEP) {
+    commentsLoader.classList.add('hidden');
+    socialCommentCount.childNodes[0].textContent = `${comments.length} из `;
   }
 
   renderComments(comments.slice(0, COMMENTS_PER_STEP));
@@ -79,7 +84,6 @@ const onLoadButtonClick = () => {
 
 const setPreviewClick = (preview, info) => {
   preview.addEventListener('click', () => {
-    socialCommentCount.classList.add('hidden');
     createBigPictureContent(info);
     openModal();
   });
