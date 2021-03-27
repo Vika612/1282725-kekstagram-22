@@ -41,6 +41,7 @@ const validateHashtag = () => {
     }
   }
   hashtagInput.setCustomValidity('');
+  return true;
 };
 
 const onFieldCommentValidate = () => {

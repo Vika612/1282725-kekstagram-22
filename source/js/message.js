@@ -16,8 +16,12 @@ const onDocumentClick = (evt) => {
   const el = evt.target;
   if (el.classList.contains('success') || el.classList.contains('success__button') ||
   el.classList.contains('error') || el.classList.contains('error__button')) {
-    onDocumentKeydown();
+    hideMessage();
   }
+};
+
+const onDocumentKeydown = () => {
+  hideMessage();
 };
 
 const showMessage = (result) => {
@@ -33,7 +37,7 @@ const showMessage = (result) => {
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onDocumentKeydown = () => {
+const hideMessage = () => {
   successText.remove();
   errorText.remove();
 

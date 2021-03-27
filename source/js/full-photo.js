@@ -47,6 +47,16 @@ const renderComments = (comments) => {
   socialComments.appendChild(commentFragment);
 };
 
+const loadComments = (comments) => {
+  if (comments.length > COMMENTS_PER_STEP) {
+    commentsLoader.classList.remove('hidden');
+    socialCommentCount.innerHTML = `${socialComments.children.length} из <span class="comments-count">${allComments.length}</span> комментариев`;
+  } else {
+    commentsLoader.classList.add('hidden');
+    socialCommentCount.innerHTML = `${socialComments.children.length} из <span class="comments-count">${allComments.length}</span> комментариев`;
+  }
+};
+
 const createBigPictureContent = ({url, likes, comments, description}) => {
   allComments = comments;
 
@@ -57,16 +67,8 @@ const createBigPictureContent = ({url, likes, comments, description}) => {
   socialCaption.textContent = description;
 
   loadedCommentsAmount = COMMENTS_PER_STEP;
-  if (comments.length > COMMENTS_PER_STEP) {
-    commentsLoader.classList.remove('hidden');
-    socialCommentCount.childNodes[0].textContent = `${loadedCommentsAmount} из `;
-  }
-  if (comments.length <= COMMENTS_PER_STEP) {
-    commentsLoader.classList.add('hidden');
-    socialCommentCount.childNodes[0].textContent = `${comments.length} из `;
-  }
-
   renderComments(comments.slice(0, COMMENTS_PER_STEP));
+  loadComments(comments);
 
   if (loadedCommentsAmount <= allComments.length) {
     commentsLoader.addEventListener('click', onLoadButtonClick);
@@ -77,6 +79,7 @@ const onLoadButtonClick = () => {
   if (loadedCommentsAmount < allComments.length) {
     renderComments(allComments.slice(loadedCommentsAmount, loadedCommentsAmount + COMMENTS_PER_STEP));
     loadedCommentsAmount += COMMENTS_PER_STEP;
+    socialCommentCount.innerHTML = `${socialComments.children.length} из <span class="comments-count">${allComments.length}</span> комментариев`;
 
     if (loadedCommentsAmount >= allComments.length) {
       commentsLoader.classList.add('hidden');
