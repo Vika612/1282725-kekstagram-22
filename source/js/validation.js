@@ -8,7 +8,7 @@ const commentText = document.querySelector('.text__description');
 const hashtagPattern = /^#[A-Za-zА-Яа-я0-9]+$/;
 
 
-const onFieldHashtagValidate = () => {
+const validateHashtag = () => {
   let hashtags = hashtagInput.value
     .trim()
     .toLowerCase()
@@ -21,23 +21,23 @@ const onFieldHashtagValidate = () => {
 
     if (hashtags[i].length > MAX_HASHTAG_LENGTH) {
       hashtagInput.setCustomValidity(`Хэштег не должен превышать ${MAX_HASHTAG_LENGTH} символов`);
-      return false;
+      return;
     }
-    else if (hashtags[i] === '#') {
+    if (hashtags[i] === '#') {
       hashtagInput.setCustomValidity('Хэштег не может состоять только из решётки');
-      return false;
+      return;
     }
-    else if (uniqueHashtags.size !== hashtags.length) {
+    if (uniqueHashtags.size !== hashtags.length) {
       hashtagInput.setCustomValidity('Хэштеги не могут повторяться');
-      return false;
+      return;
     }
-    else if (hashtags.length > MAX_HASHTAG_COUNT) {
+    if (hashtags.length > MAX_HASHTAG_COUNT) {
       hashtagInput.setCustomValidity(`Пожалуйста, не более ${MAX_HASHTAG_COUNT} хэштегов`);
-      return false;
+      return;
     }
-    else if (!hashtagPattern.test(hashtags[i].trim())) {
+    if (!hashtagPattern.test(hashtags[i])) {
       hashtagInput.setCustomValidity('Хэштег должен начинаться с # и содержать только буквы и цифры');
-      return false;
+      return;
     }
   }
   hashtagInput.setCustomValidity('');
@@ -48,7 +48,7 @@ const onFieldCommentValidate = () => {
 };
 
 hashtagInput.addEventListener('input', () => {
-  if (!onFieldHashtagValidate(hashtagInput.value)) {
+  if (!validateHashtag(hashtagInput.value)) {
     hashtagInput.reportValidity();
   }
 });

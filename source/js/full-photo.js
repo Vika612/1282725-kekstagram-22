@@ -39,9 +39,12 @@ const createNewComment = ({avatar, name, message}) => {
 };
 
 const renderComments = (comments) => {
+  const commentFragment = document.createDocumentFragment();
+
   comments.forEach((comment) => {
-    socialComments.appendChild(createNewComment(comment));
-  });
+    commentFragment.appendChild(createNewComment(comment));
+  })
+  socialComments.appendChild(commentFragment);
 };
 
 const createBigPictureContent = ({url, likes, comments, description}) => {

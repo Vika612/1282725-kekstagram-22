@@ -12,11 +12,11 @@ const successText = successTemplate.cloneNode(true);
 const errorText = errorTemplate.cloneNode(true);
 
 
-const onCloseOutClick = (evt) => {
+const onDocumentClick = (evt) => {
   const el = evt.target;
   if (el.classList.contains('success') || el.classList.contains('success__button') ||
   el.classList.contains('error') || el.classList.contains('error__button')) {
-    onCloseMessageKeydown();
+    onDocumentKeydown();
   }
 };
 
@@ -29,16 +29,16 @@ const showMessage = (result) => {
       main.appendChild(errorText);
       break;
   }
-  document.addEventListener('click', onCloseOutClick);
-  document.addEventListener('keydown', onCloseMessageKeydown);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
-const onCloseMessageKeydown = () => {
+const onDocumentKeydown = () => {
   successText.remove();
   errorText.remove();
 
-  document.removeEventListener('click', onCloseOutClick);
-  document.removeEventListener('keydown', onCloseMessageKeydown);
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 
