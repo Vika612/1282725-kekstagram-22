@@ -48,13 +48,8 @@ const renderComments = (comments) => {
 };
 
 const renderCommentsCounter = (comments) => {
-  if (comments.length > COMMENTS_PER_STEP) {
-    commentsLoader.classList.remove('hidden');
-    updateCommentCount();
-  } else {
-    commentsLoader.classList.add('hidden');
-    updateCommentCount();
-  }
+  commentsLoader.classList.toggle('hidden', comments.length <= loadedCommentsAmount);
+  updateCommentCount();
 };
 
 const updateCommentCount = () => {
@@ -83,10 +78,9 @@ const onLoadButtonClick = () => {
   if (loadedCommentsAmount < allComments.length) {
     renderComments(allComments.slice(loadedCommentsAmount, loadedCommentsAmount + COMMENTS_PER_STEP));
     loadedCommentsAmount += COMMENTS_PER_STEP;
-    updateCommentCount();
+    renderCommentsCounter(allComments);
 
     if (loadedCommentsAmount >= allComments.length) {
-      commentsLoader.classList.add('hidden');
       commentsLoader.removeEventListener('click', onLoadButtonClick);
     }
   }
